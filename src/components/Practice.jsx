@@ -1,40 +1,68 @@
-import { useState, useEffect } from 'react';
-import Button from "./button";
+import { useState } from 'react';
 
-export default function ProductGrid() {
-    const [products, setProducts] = useState([]);
+export default function Button({ className = "", onQuantityChange, ...props }) {
+    const [isAdded, setIsAdded] = useState(false);
+    const [quantity, setQuantity] = useState(1);
 
-    useEffect(() => {
-        // Fetch data from public folder
-        fetch('/data.json')
-            .then(response => response.json())
-            .then(data => setProducts(data))
-            .catch(error => console.error('Error loading data:', error));
-    }, []);
+    const handleAddToCart = () => {
+        setIsAdded(true);
+        if (onQuantityChange) {
+            onQuantityChange(1);
+        }
+    };
 
-    return(
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {products.map((product, index) => (
-                <section key={index} className="relative">
-                    <section className="relative">
-                        <div className="w-[315px] h-[200px] bg-yellow-300 rounded-lg relative z-0">
-                            <img 
-                                src={product.image.desktop} 
-                                alt={product.name} 
-                                className="rounded-lg w-full h-full object-cover"
-                            />
-                        </div>
-                    
-                        <Button className="absolute z-10 -bottom-4 left-1/2 transform -translate-x-1/2" />
-                    </section>
+    const handleIncrement = () => {
+        const newQuantity = quantity + 1;
+        setQuantity(newQuantity);
+        if (onQuantityChange) {
+            onQuantityChange(newQuantity);
+        }
+    };
 
-                    <section className="py-[2rem] md:my-[5rem]">
-                        <p className="text-sm text-gray-600">{product.category}</p>
-                        <p className="font-semibold">{product.name}</p>
-                        <p className="text-rose-600 font-bold">${product.price.toFixed(2)}</p>
-                    </section>
-                </section>
-            ))}
+    const handleDecrement = () => {
+        const newQuantity = quantity - 1;
+        if (newQuantity === 0) {
+            setIsAdded(false);
+            setQuantity(1);
+            if (onQuantityChange) {
+                onQuantityChange(0);
+            }
+        } else {
+            setQuantity(newQuantity);
+            if (onQuantityChange) {
+                onQuantityChange(newQuantity);
+            }
+        }
+    };
+
+    return (
+        <div className="flex flex-col items-center">
+            {!isAdded ? (
+                <button 
+                    className={`rounded-3xl border-2 border-rose-400 flex gap-2 bg-white py-2 px-4 ${className}`}
+                    onClick={handleAddToCart}
+                    {...props}
+                >
+                    <img src="/images/icon-add-to-cart.svg" alt="add to cart" />
+                    <p>Add to Cart</p>
+                </button>
+            ) : (
+                <div className={`rounded-3xl border-2 border-rose-400 flex items-center justify-between bg-rose-400 py-2 px-4 ${className}`}>
+                    <button 
+                        onClick={handleDecrement}
+                        className="w-6 h-6 flex items-center justify-center rounded-full border border-white text-white hover:bg-white hover:text-rose-400 transition-colors"
+                    >
+                        -
+                    </button>
+                    <span className="text-white font-semibold px-4">{quantity}</span>
+                    <button 
+                        onClick={handleIncrement}
+                        className="w-6 h-6 flex items-center justify-center rounded-full border border-white text-white hover:bg-white hover:text-rose-400 transition-colors"
+                    >
+                        +
+                    </button>
+                </div>
+            )}
         </div>
-    )
+    );
 }

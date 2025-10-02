@@ -12,7 +12,7 @@ export default function ProductGrid() {
             .catch(error => console.error("Error: ", error))
     }, [])
     return(
-        <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:gap-2">
+        <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:gap-4">
             {products.map((product, index) => (
                 <div key={index} className="md:flex md:flex-col md:relative">
                     <section className="relative">
@@ -24,18 +24,18 @@ export default function ProductGrid() {
                             <img 
                                 src={product.image.mobile} 
                                 alt={product.name} 
-                                className="rounded-lg md:relative"
+                                className="rounded-lg"
                             />
                            </picture>
                         </div>
                 
-                        <Button className="absolute z-10 -bottom-4 md:right-1/2" />
+                        <Button className="absolute z-30 -bottom-4 md:-left-[20px] md:top-[110px] md:relative" />
                     </section>
 
-                    <section className="py-[2rem] relative md:z-20 md:py-[10rem]">
+                    <section className="py-[2rem] relative md:z-20 md:py-[8rem]">
                         <p className="">{product.category}</p>
-                        <p className="text-xl font-semibold text-rose-900 md:text-3xl">{product.name}</p>
-                        <p className="font-semibold text-rose-600 md:text-2xl">${product.price.toFixed(2)}</p>
+                        <p className="text-xl font-semibold text-rose-900 md:text-2xl">{product.name}</p>
+                        <p className="font-semibold text-red md:text-xl">${product.price.toFixed(2)}</p>
                     </section>
                 </div>
             ))}
