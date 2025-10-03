@@ -1,7 +1,7 @@
 import Button from "./button";
 import { useState, useEffect } from 'react';
 
-export default function ProductGrid() {
+export default function ProductGrid({ onQuantityChange }) {
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
@@ -12,33 +12,39 @@ export default function ProductGrid() {
             .catch(error => console.error("Error: ", error))
     }, [])
     return(
-        <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:gap-4">
-            {products.map((product, index) => (
-                <div key={index} className="md:flex md:flex-col md:relative">
-                    <section className="relative">
-                        <div className="w-[315px] h-[200px] md:h-[100px] md:w-[250px] rounded-lg relative z-0">
-                           <picture>
-                            <source media="(min-width: 1024px)" srcSet={product.image.desktop} />
-                            <source media="(min-width: 768px)" srcSet={product.image.tablet} />
+        <div>
+            <h1 className='text-4xl font-bold text-rose-900 py-[1rem]'>Desserts</h1>
+            <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:gap-4">
+                {products.map((product, index) => (
+                    <div key={index} className="md:flex md:flex-col md:relative">
+                        <section className="relative">
+                            <div className="w-[315px] h-[200px] md:h-[100px] md:w-[250px] rounded-lg relative z-0">
+                            <picture>
+                                <source media="(min-width: 1024px)" srcSet={product.image.desktop} />
+                                <source media="(min-width: 768px)" srcSet={product.image.tablet} />
 
-                            <img 
-                                src={product.image.mobile} 
-                                alt={product.name} 
-                                className="rounded-lg"
+                                <img 
+                                    src={product.image.mobile} 
+                                    alt={product.name} 
+                                    className="rounded-lg"
+                                />
+                            </picture>
+                            </div>
+                    
+                            <Button 
+                                className="absolute z-30 -bottom-4 md:-left-[20px] md:top-[110px] md:relative" 
+                                onQuantityChange={(qty) => onQuantityChange(product, qty)}
                             />
-                           </picture>
-                        </div>
-                
-                        <Button className="absolute z-30 -bottom-4 md:-left-[20px] md:top-[110px] md:relative" />
-                    </section>
+                        </section>
 
-                    <section className="py-[2rem] relative md:z-20 md:py-[8rem]">
-                        <p className="">{product.category}</p>
-                        <p className="text-xl font-semibold text-rose-900 md:text-2xl">{product.name}</p>
-                        <p className="font-semibold text-red md:text-xl">${product.price.toFixed(2)}</p>
-                    </section>
-                </div>
-            ))}
-        </section>
+                        <section className="py-[2rem] relative md:z-20 md:py-[8rem]">
+                            <p className="">{product.category}</p>
+                            <p className="text-xl font-semibold text-rose-900 md:text-2xl">{product.name}</p>
+                            <p className="font-semibold text-red md:text-xl">${product.price.toFixed(2)}</p>
+                        </section>
+                    </div>
+                ))}
+            </section>
+        </div>
     )
 }
