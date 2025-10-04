@@ -1,10 +1,10 @@
-export default function CartPage({ cart, removeFromCart }) {
+export default function CartPage({ cart, removeFromCart, onConfirmOrder }) {
     const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
     const orderTotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
 
     
     return(
-        <div className="bg-white md:min-h-[100px] lg:w-[350px] rounded-lg p-4">    
+        <div className="bg-white md:min-h-[300px] md:self-start lg:w-[350px] rounded-lg p-4">    
             <p className="text-red text-3xl font-bold">Your Cart ({totalItems})</p>
 
             {cart.length === 0 ? (
@@ -41,20 +41,30 @@ export default function CartPage({ cart, removeFromCart }) {
                         </div>
                     ))}
 
-                    <div className="flex flex-row justify-between items-center">
+                    <div className="flex flex-row justify-between items-center py-[1.5rem]">
                         <p>Order Total</p>
-                        <span>${orderTotal.toFixed(2)}</span>
+                        <span className="text-3xl font-bold">${orderTotal.toFixed(2)}</span>
                     </div>
 
-                    <div>
-                        <p>This is a <span className="font-bold">carbon-neutral</span> delivery</p>
-                    </div>
-                    
-                    <div>
-                        <button className="bg-red text-white rounded-3xl">
-                            Confirm Order
-                        </button>
-                    </div>
+                    <section className="flex flex-col items-center">
+                        <div className="py-[1rem] px-[0.5rem] flex flex-row items-center gap-2 bg-rose-100 rounded-lg">
+                            <img 
+                                src="/images/icon-carbon-neutral.svg" 
+                                alt="carbon neutral icon"
+                                className="block"
+                            />
+                            <p>This is a <span className="font-bold text-rose-900">carbon-neutral</span> delivery</p>
+                        </div>
+                        
+                        <div className="py-[1rem]">
+                            <button 
+                                className="bg-red text-white rounded-3xl px-[5.5rem] py-[0.5rem]"
+                                onClick={onConfirmOrder}
+                            >
+                                Confirm Order
+                            </button>
+                        </div>
+                    </section>
                 </section>
             )}           
         </div>

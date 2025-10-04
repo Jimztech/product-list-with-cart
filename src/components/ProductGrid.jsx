@@ -38,7 +38,7 @@ export default function ProductGrid({ onQuantityChange }) {
                         </section>
 
                         <section className="py-[2rem] relative md:z-20 md:py-[8rem]">
-                            <p className="">{product.category}</p>
+                            <p className="text-rose-300">{product.category}</p>
                             <p className="text-xl font-semibold text-rose-900 md:text-2xl">{product.name}</p>
                             <p className="font-semibold text-red md:text-xl">${product.price.toFixed(2)}</p>
                         </section>

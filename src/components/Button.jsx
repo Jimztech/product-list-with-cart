@@ -40,12 +40,12 @@ export default function Button({ className="", onQuantityChange, ...props }) {
         <div className="flex flex-col items-center cursor-pointer">
             {!isAdded ? (
                 <button 
-                    className={`rounded-3xl border-2 border-rose-400 flex gap-[0.5rem] bg-white py-2 px-4 ${className}`}
+                    className={`rounded-3xl border-rose-400 flex gap-[0.5rem] bg-white py-2 px-4 ${className}`}
                     {...props}
                     onClick={handleAddToCart}
                 >
                     <img src="/images/icon-add-to-cart.svg" alt="add to cart" />
-                    <p>Add to Cart</p>
+                    <p className="text-rose-900 font-semibold">Add to Cart</p>
                 </button>
             ):(
                 <button className={`bg-red rounded-3xl flex flex-row gap-[2rem] py-2 px-4 ${className}`}>

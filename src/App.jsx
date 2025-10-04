@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import CartPage from './components/CartPage';
 import ProductGrid from './components/ProductGrid';
+import OrderConfirmed from './components/OrderConfirmed';
 
 
 function App() {
   const [cart, setCart] = useState([]);
+  const [showOrderConfirmed, setShowOrderConfirmed] = useState(false);
 
   function handleQuantityChange(product, quantity) {
     if(quantity === 0) {
@@ -29,12 +31,28 @@ function App() {
     setCart(cart.filter(item => item.name !== productName))
   };
 
+  function handleConfirmOrder() {
+    setShowOrderConfirmed(true);
+  }
+
+  function handleStartNewOrder() {
+    setShowOrderConfirmed(false);
+    setCart([]);
+  }
+
   return (
     <div className='p-[2rem] bg-rose-100'>
       <section className='flex flex-col md:flex-row'>
         <ProductGrid onQuantityChange={handleQuantityChange} />
-        <CartPage cart={cart} removeFromCart={removeFromCart} />
+        <CartPage cart={cart} removeFromCart={removeFromCart} onConfirmOrder={handleConfirmOrder} />
       </section>
+
+      {showOrderConfirmed && (
+        <OrderConfirmed 
+          cart={cart}
+          onStartNewOrder={handleStartNewOrder}
+        />
+      )}
     </div>
   )
 }
