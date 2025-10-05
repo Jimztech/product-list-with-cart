@@ -1,4 +1,4 @@
-import Button from "./button";
+import Button from "./Button";
 import { useState, useEffect } from 'react';
 
 export default function ProductGrid({ onQuantityChange, cart }) {
