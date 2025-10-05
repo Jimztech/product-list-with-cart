@@ -43,7 +43,7 @@ function App() {
   return (
     <div className='p-[2rem] bg-rose-100'>
       <section className='flex flex-col md:flex-row'>
-        <ProductGrid onQuantityChange={handleQuantityChange} />
+        <ProductGrid onQuantityChange={handleQuantityChange} cart={cart} />
         <CartPage cart={cart} removeFromCart={removeFromCart} onConfirmOrder={handleConfirmOrder} />
       </section>
 

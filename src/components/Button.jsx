@@ -1,8 +1,15 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-export default function Button({ className="", onQuantityChange, ...props }) {
-    const [isAdded, setIsAdded] = useState(false);
-    const [quantity, setQuantity] = useState(1);
+export default function Button({ className="", onQuantityChange, currentQuantity = 0, ...props }) {
+    const [isAdded, setIsAdded] = useState(currentQuantity > 0);
+    const [quantity, setQuantity] = useState(currentQuantity || 1);
+
+    useEffect(() => {
+        if(currentQuantity === 0) {
+            setIsAdded(false);
+            setQuantity(1);
+        }
+    }, [currentQuantity]);
 
     function handleAddToCart() {
         setIsAdded(true);
@@ -50,7 +57,7 @@ export default function Button({ className="", onQuantityChange, ...props }) {
             ):(
                 <button className={`bg-red rounded-3xl flex flex-row gap-[2rem] py-2 px-4 ${className}`}>
                     <img 
-                        src="/public/images/icon-decrement-quantity.svg" 
+                        src="/images/icon-decrement-quantity.svg" 
                         alt="decrement icon"
                         className="rounded-2xl border-2 border-white p-2" 
                         onClick={handleDecrement}
@@ -59,7 +66,7 @@ export default function Button({ className="", onQuantityChange, ...props }) {
                     <span className="text-white">{quantity}</span>
 
                     <img 
-                        src="/public/images/icon-increment-quantity.svg" 
+                        src="/images/icon-increment-quantity.svg" 
                         alt="increment icon"
                         className="rounded-2xl border-2 border-white p-2" 
                         onClick={handleIncrement}
