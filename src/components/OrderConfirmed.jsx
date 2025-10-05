@@ -38,9 +38,9 @@ export default function OrderConfirmed({ cart, onStartNewOrder }) {
                             </section>
                         </div>
                     ))}
-                    <div>
+                    <div className="flex flex-row items-center justify-between py-[1rem]">
                         <p className="text-rose-900">Order Total</p>
-                        <p>{orderTotal}</p>
+                        <p className="text-2xl md:text-3xl font-bold text-rose-900">${orderTotal}</p>
                     </div>
                 </section>
 

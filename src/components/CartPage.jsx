@@ -11,7 +11,7 @@ export default function CartPage({ cart, removeFromCart, onConfirmOrder }) {
                 // For an empty cart return this first section
                 <section className="flex flex-col items-center">
                     <img 
-                        src="/public/images/illustration-empty-cart.svg" 
+                        src="/images/illustration-empty-cart.svg" 
                         alt="empty cart" 
                         className="md:py-[1rem]"
                     />
