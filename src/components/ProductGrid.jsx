@@ -22,7 +22,7 @@ export default function ProductGrid({ onQuantityChange, cart }) {
                     return(
                         <div key={index} className="md:flex md:flex-col md:relative">
                             <section className="relative">
-                                <div className="h-[200px] md:h-[100px] md:w-[250px] rounded-lg relative z-0">
+                                <div className="w-[315px] h-[200px] md:h-[100px] md:w-[250px] rounded-lg relative z-0">
                                 <picture>
                                     <source media="(min-width: 1024px)" srcSet={product.image.desktop} />
                                     <source media="(min-width: 768px)" srcSet={product.image.tablet} />
